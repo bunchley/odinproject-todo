@@ -5,6 +5,7 @@ const createDomElement = (parentElement, type, className) => {
   return newElement;
 };
 
-// const displayItem = (function () {})();
-
+const displayItem = () => {
+  let taskList = [];
+};
 export { createDomElement };

@@ -1,10 +1,10 @@
 * {
   margin: 0;
   padding: 0;
-  color: white;
+  /* color: white; */
 }
 body {
-  background-color: black;
+  background-color: #001d3d;
 }
 
 button {
@@ -29,7 +29,7 @@ button {
   grid-area: header;
   display: flex;
   flex-direction: column;
-  border: 5px solid white;
+  /* border: 5px solid white; */
   padding: 20px;
 }
 .title {
@@ -52,19 +52,44 @@ img {
 }
 .main-container {
   grid-area: main;
-  border: 5px dotted red;
+  /* border: 5px dotted red; */
   display: grid;
-
+  gap: 20px;
   grid-template-columns: 1fr 0.4fr;
   grid-template-rows: auto;
   grid-template-areas: "item sideline";
+  color: black;
   height: 100%;
+  margin: 20px;
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 33px;
 }
 .item-container {
   grid-area: item;
-  border: 5px solid white;
+  /* border: 5px solid white; */
+  background-color: #003566;
+  border-radius: 9%;
+  color: white;
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 33px;
 }
 .side-container {
   grid-area: sideline;
-  border: 5px solid white;
+  background-color: #ffc300;
+  color: black;
+  padding: 23px;
+  border-radius: 11%;
+}
+.side-title {
+  font-size: 43px;
+}
+button.new-project {
+  background-color: #ffd60a;
+  border: none;
+  height: 27px;
+  width: 200px;
 }

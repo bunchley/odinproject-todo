@@ -1,5 +1,6 @@
 import { createDomElement } from "./displayItem";
 import logoImg from "./img/fastRabbit.jpeg";
+import { displayProjects } from "./project";
 const createHeader = () => {
   const contentBlock = document.getElementById("content");
   const headerContainer = createDomElement(contentBlock, "div", "header");
@@ -15,7 +16,7 @@ const createMainContainer = () => {
   const mainContainer = createDomElement(contentBlock, "div", "main-container");
 
   let itemContainer = createDomElement(mainContainer, "div", "item-container");
-  itemContainer.textContent = "item container";
+  itemContainer.textContent = "Tasks";
   let sideLine = createDomElement(mainContainer, "div", "side-container");
 };
 
@@ -32,10 +33,12 @@ const createSideBar = () => {
   );
   newContainerButton.textContent = "Add Another Project";
 };
+
 const home = (function () {
   createHeader();
   createMainContainer();
   createSideBar();
+  displayProjects();
 })();
 
 export { home };
