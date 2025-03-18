@@ -65,6 +65,7 @@ img {
   font-weight: 400;
   font-style: normal;
   font-size: 33px;
+  padding: 23px;
 }
 .item-container {
   grid-area: item;
@@ -76,6 +77,7 @@ img {
   font-weight: 400;
   font-style: normal;
   font-size: 33px;
+  padding: 23px;
 }
 .side-container {
   grid-area: sideline;
