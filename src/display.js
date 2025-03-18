@@ -32,24 +32,25 @@ const createSideBar = () => {
 const displayProject = (project) => {
   const sideContainer = document.querySelector(".side-title");
   let newProject = createDomElement(sideContainer, "div", "project");
-  // console.log("get projects", ProjectManager.getProjects());
-  // ProjectManager.getProjects().forEach((project) => {
-  //   console.log("display project", project.getName());
   newProject.textContent = `${project.getName()}`;
-  // });
-  // const newContainerButton = createDomElement(
-  //   container,
-  //   "button",
-  //   "new-project"
-  // );
-  // newContainerButton.textContent = "Add Another Project";
+
   return newProject;
+};
+const addNewProjectButton = () => {
+  const sideContainer = document.querySelector(".side-title");
+  const newContainerButton = createDomElement(
+    sideContainer,
+    "button",
+    "new-project"
+  );
+  newContainerButton.textContent = "Add Another Project";
 };
 const DisplayManager = (() => {
   const renderProjects = () => {
     ProjectManager.getProjects().forEach((project) => {
       displayProject(project);
     });
+    addNewProjectButton();
   };
   const renderPage = () => {
     createHeader();
