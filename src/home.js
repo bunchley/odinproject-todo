@@ -1,6 +1,8 @@
-import { createDomElement } from "./displayItem";
+import { createDomElement } from "./display";
 import logoImg from "./img/fastRabbit.jpeg";
-import { displayProjects } from "./project";
+import { DisplayManager } from "./display";
+import { ProjectManager } from "./project";
+
 const createHeader = () => {
   const contentBlock = document.getElementById("content");
   const headerContainer = createDomElement(contentBlock, "div", "header");
@@ -38,7 +40,10 @@ const home = (function () {
   createHeader();
   createMainContainer();
   createSideBar();
-  displayProjects();
+  const project1 = ProjectManager.addProject("Finish ToDo");
+  const project2 = ProjectManager.addProject("Finish ToDo");
+  console.log(ProjectManager.getProjects());
+  DisplayManager.displayProjects(ProjectManager.getProjects());
 })();
 
 export { home };
