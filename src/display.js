@@ -1,4 +1,4 @@
-import ProjectManager from "./project";
+import { ProjectManager } from "./project";
 import logoImg from "./img/fastRabbit.jpeg";
 const createDomElement = (parentElement, type, className) => {
   const newElement = document.createElement(type);
@@ -28,16 +28,8 @@ const createSideBar = () => {
   const containerTitle = createDomElement(container, "div", "side-title");
   containerTitle.textContent = "Categories";
 };
-
-const displayProject = (project) => {
-  const sideContainer = document.querySelector(".side-title");
-  let newProject = createDomElement(sideContainer, "div", "project");
-  newProject.textContent = `${project.getName()}`;
-
-  return newProject;
-};
 const addNewProjectButton = () => {
-  const sideContainer = document.querySelector(".side-title");
+  const sideContainer = document.querySelector(".side-container");
   const newContainerButton = createDomElement(
     sideContainer,
     "button",
@@ -45,23 +37,35 @@ const addNewProjectButton = () => {
   );
   newContainerButton.textContent = "Add Another Project";
 };
+
+const displayItem = (container, itemName, type) => {
+  let newItem = createDomElement(container, "div", `${type}`);
+  newItem.textContent = `${itemName}`;
+  return newItem;
+};
 const DisplayManager = (() => {
   const renderProjects = () => {
     ProjectManager.getProjects().forEach((project) => {
-      displayProject(project);
+      const sideContainer = document.querySelector(".side-container");
+      displayItem(sideContainer, project.getName(), "project");
     });
     addNewProjectButton();
   };
-  const renderPage = () => {
+  const renderTasks = (tasks) => {
+    tasks.forEach((task) => {
+      const taskContainer = document.querySelector(".item-container");
+      displayItem(taskContainer, task.title, "task");
+      // displayItem.textContent = `${task.getName()}`;
+    });
+  };
+  const renderPage = (tasks) => {
     createHeader();
     createMainContainer();
     createSideBar();
     renderProjects();
-    // createMainContainer();
-    // createSideBar();
   };
 
-  return { renderPage, renderProjects };
+  return { renderPage, renderProjects, renderTasks };
 })();
 
 export { DisplayManager };

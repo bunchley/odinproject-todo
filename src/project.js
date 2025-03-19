@@ -2,19 +2,26 @@ const ProjectManager = (() => {
   const projects = [];
 
   const createProject = (name) => {
-    const taskList = [];
+    const tasks = [];
     const getName = () => name;
-    const getTasks = () => taskList;
+    const getTasks = () => {
+      return tasks;
+    };
+    const addTask = (title, description) => {
+      tasks.push({ title, description });
+    };
+    const removeTask = (title) => {
+      const index = tasks.findIndex((task) => task.title === title);
+      if (index != -1) {
+        tasks.splice(index, 1);
+      }
+    };
 
-    const addTask = (task) => taskList.push(task);
-    const removeTask = (taskIndex) => taskList.splice(taskIndex, 1);
-
-    return { getName, getTasks, addTask, removeTask };
+    return { getName, addTask, removeTask, getTasks };
   };
 
   const addProject = (name) => {
     const newProject = createProject(name);
-    console.log("new Project:", newProject);
     projects.push(newProject);
     return newProject;
   };
@@ -30,4 +37,4 @@ const ProjectManager = (() => {
   return { addProject, removeProject, getProjects };
 })();
 
-export default ProjectManager;
+export { ProjectManager };

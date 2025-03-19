@@ -88,10 +88,14 @@ img {
 }
 .side-title {
   font-size: 43px;
+  padding-bottom: 17px;
 }
 button.new-project {
   background-color: #ffd60a;
   border: none;
   height: 27px;
   width: 200px;
+}
+.project {
+  font-size: 23px;
 }
