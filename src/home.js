@@ -13,8 +13,16 @@ const home = (function () {
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      if (button.classList.contains("new-project")) {
-        console.log("add new project button clicked");
+      if (button.classList.contains("project")) {
+        DisplayManager.renderNewProject();
+      } else if (button.classList.contains("task")) {
+        console.log("ADD NEW TASK");
+      } else if (button.classList.contains("done")) {
+        console.log("DONE");
+      } else if (button.classList.contains("edit")) {
+        console.log("EDIT");
+      } else if (button.classList.contains("delete")) {
+        console.log("DELETE");
       }
     });
   });

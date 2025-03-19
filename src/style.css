@@ -7,9 +7,6 @@ body {
   background-color: #001d3d;
 }
 
-button {
-  background-color: orangered;
-}
 .title {
   font-family: "Michroma", sans-serif;
   font-weight: 400;
@@ -33,7 +30,7 @@ button {
   padding: 20px;
 }
 .title {
-  color: white;
+  color: #fefae0;
   align-self: center;
   font-size: 47px;
 }
@@ -45,6 +42,7 @@ button {
   margin-right: auto;
   width: 130px;
   border-radius: 50%;
+  opacity: 60%;
 }
 
 img {
@@ -72,7 +70,7 @@ img {
   /* border: 5px solid white; */
   background-color: #003566;
   border-radius: 9%;
-  color: white;
+  color: #fefae0;
   font-family: "Michroma", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -86,16 +84,80 @@ img {
   padding: 23px;
   border-radius: 11%;
 }
-.side-title {
+.side-title,
+.item-title {
   font-size: 43px;
   padding-bottom: 17px;
 }
-button.new-project {
+
+.project,
+.task {
+  font-size: 23px;
+  background-color: #001d3d;
+  margin: 10px;
+  border-radius: 9%;
+  height: 50px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 50px 50px 50px;
+  gap: 10px;
+  align-items: center;
+  align-content: center;
+}
+.edit,
+.delete,
+.done,
+.save-project,
+.cancel-project,
+input {
+  height: 35px;
   background-color: #ffd60a;
-  border: none;
-  height: 27px;
-  width: 200px;
+  width: 50px;
+  border-radius: 21%;
+}
+.edit {
+  grid-column-start: 3;
 }
 .project {
-  font-size: 23px;
+  background-color: #ffd60a;
+}
+button.task {
+  background-color: #ffd60a;
+  display: flex;
+}
+button.project {
+  background-color: #001d3d;
+  color: #fefae0;
+  display: flex;
+}
+button.project:hover {
+  opacity: 100%;
+}
+.new-project {
+  display: grid;
+  flex-basis: 20em;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "input input"
+    "save cancel";
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+  align-content: center;
+}
+
+input.add-project-title {
+  background-color: #001d3d;
+  color: #fefae0;
+  font-size: 32px;
+  border-radius: 5%;
+  grid-area: input;
+  width: auto;
+  margin: 10px;
+}
+button.save-project {
+  grid-area: save;
 }
