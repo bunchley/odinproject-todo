@@ -1,9 +1,12 @@
 import { ProjectManager } from "./project";
 import logoImg from "./img/fastRabbit.jpeg";
 import { home } from "./home";
-const createDomElement = (parentElement, type, className) => {
+const createDomElement = (parentElement, type, className, text = "") => {
   const newElement = document.createElement(type);
   newElement.classList.add(className);
+  if (text !== "") {
+    newElement.textContent = text;
+  }
   parentElement.append(newElement);
   return newElement;
 };
@@ -18,24 +21,21 @@ const createHeader = () => {
   const contentBlock = document.getElementById("content");
   const headerContainer = createDomElement(contentBlock, "div", "header");
   const logo = createDomElement(headerContainer, "img", "logo");
-  const title = createDomElement(headerContainer, "div", "title");
-  // title.classlist.add("michroma-regular");
+  createDomElement(headerContainer, "div", "title", "TaskRabbit");
   logo.src = logoImg;
-  title.textContent = "Task Rabbit";
 };
 const createMainContainer = () => {
   const contentBlock = document.getElementById("content");
   const mainContainer = createDomElement(contentBlock, "div", "main-container");
 
   let itemContainer = createDomElement(mainContainer, "div", "item-container");
-  itemContainer.textContent = "Tasks";
-  const itemTitle = createDomElement(itemContainer, "div", "item-title");
+
   let sideLine = createDomElement(mainContainer, "div", "side-container");
 };
 const createSideBar = () => {
   const container = document.querySelector(".side-container");
-  const containerTitle = createDomElement(container, "div", "side-title");
-  containerTitle.textContent = "Categories";
+
+  // containerTitle.textContent = "Categories";
 };
 const addNewItemButton = (container, type) => {
   const buttonContainer = createDomElement(
@@ -62,19 +62,21 @@ const addNewItemButton = (container, type) => {
 const displayItem = (container, itemName, type) => {
   let newItem = createDomElement(container, "a", `${type}`);
   // newItem.classList.add(`${itemName}`);
-  const title = createDomElement(newItem, "div", `${type}-title`);
-  title.textContent = `${itemName}`;
+  const title = createDomElement(
+    newItem,
+    "div",
+    `${type}-title`,
+    `${itemName}`
+  );
+  // title.textContent = `${itemName}`;
   if (type === "task") {
-    const done = createDomElement(newItem, "button", "done");
-    done.textContent = "Done";
+    const done = createDomElement(newItem, "button", "done", "Done");
   }
-  const edit = createDomElement(newItem, "button", `edit`);
-  edit.textContent = `Edit`;
+  const edit = createDomElement(newItem, "button", `edit`, "Edit");
   edit.addEventListener("click", () => {
     console.log("EDIT CLICKKKED");
   });
-  const deleteItem = createDomElement(newItem, "button", `delete`);
-  deleteItem.textContent = `Delete`;
+  const deleteItem = createDomElement(newItem, "button", `delete`, "Delete");
   deleteItem.addEventListener("click", () => {
     if (type === "project") {
       ProjectManager.removeProject(itemName);
@@ -128,7 +130,6 @@ const createNewProject = () => {
 const createNewTask = () => {
   const addTaskContainer = document.querySelector(".add-task");
   addTaskContainer.textContent = "";
-  // const taskContainer = document.querySelector(".item-container");
   const newTaskContainer = createDomElement(
     addTaskContainer,
     "div",
@@ -146,7 +147,6 @@ const createNewTask = () => {
     "task-description",
     "Description"
   );
-  // taskDescription.type = "text";
   const taskDate = createInputElement(
     newTaskContainer,
     "date",
@@ -154,14 +154,21 @@ const createNewTask = () => {
     ""
   );
   const taskPriority = createDomElement(newTaskContainer, "select", "priority");
-  const priorityHigh = createDomElement(taskPriority, "option", "level");
-  priorityHigh.textContent = "High";
+  const priorityHigh = createDomElement(
+    taskPriority,
+    "option",
+    "level",
+    "High"
+  );
   priorityHigh.value = "High";
-  const priorityMedium = createDomElement(taskPriority, "option", "level");
-  priorityMedium.textContent = "Medium";
+  const priorityMedium = createDomElement(
+    taskPriority,
+    "option",
+    "level",
+    "Medium"
+  );
   priorityMedium.value = "Medium";
-  const priorityLow = createDomElement(taskPriority, "option", "level");
-  priorityLow.textContent = "Low";
+  const priorityLow = createDomElement(taskPriority, "option", "level", "Low");
   priorityLow.value = "Low";
   const newTaskButtonContainer = createDomElement(
     newTaskContainer,
@@ -171,15 +178,15 @@ const createNewTask = () => {
   const saveTask = createDomElement(
     newTaskButtonContainer,
     "button",
-    "save-task"
+    "save-task",
+    "Save"
   );
-  saveTask.textContent = "Save";
   const cancelTask = createDomElement(
     newTaskButtonContainer,
     "button",
-    "cancel-task"
+    "cancel-task",
+    "Cancel"
   );
-  cancelTask.textContent = "Cancel";
   cancelTask.addEventListener("click", () => {
     console.log(
       `NEED to add an active project flag to display the correct tasks`
@@ -190,7 +197,7 @@ const createNewTask = () => {
 const DisplayManager = (() => {
   const renderProjects = () => {
     const sideContainer = document.querySelector(".side-container");
-    sideContainer.textContent = "";
+    createDomElement(sideContainer, "div", "side-title", "Categories");
     ProjectManager.getProjects().forEach((project) => {
       const item = displayItem(sideContainer, project.getName(), "project");
     });
@@ -199,6 +206,7 @@ const DisplayManager = (() => {
   const renderTasks = (tasks) => {
     const taskContainer = document.querySelector(".item-container");
     taskContainer.textContent = "";
+    createDomElement(taskContainer, "div", "item-title", "Tasks");
     tasks.forEach((task) => {
       displayItem(taskContainer, task.title, "task");
     });
