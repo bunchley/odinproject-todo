@@ -17,15 +17,27 @@ const home = (function () {
         DisplayManager.renderNewProject();
       } else if (button.classList.contains("task")) {
         console.log("ADD NEW TASK");
+        // DisplayManager.renderNewTask();
       } else if (button.classList.contains("done")) {
         console.log("DONE");
       } else if (button.classList.contains("edit")) {
         console.log("EDIT");
       } else if (button.classList.contains("delete")) {
-        console.log("DELETE");
+      } else if (button.classList.contains("save-project")) {
+        console.log("SAVE PROJECT");
+        // const newProjectName =
+        //   document.querySelector(".add-project-title").textContent;
+        // console.log(newProjectName);
+        // ProjectManager.addProject(newProjectName);
+      } else if (button.classList.contains("cancel-project")) {
+        console.log("CANCEL SAVE");
       }
     });
   });
+  // if
+  // document.querySelector(".save-project").addEventListener("click", () => {
+  //   console.log("SAVE PROJECT BUTTON CLICKEDDD");
+  // });
 })();
 
 export { home };

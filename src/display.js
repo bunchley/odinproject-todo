@@ -1,5 +1,6 @@
 import { ProjectManager } from "./project";
 import logoImg from "./img/fastRabbit.jpeg";
+import { home } from "./home";
 const createDomElement = (parentElement, type, className) => {
   const newElement = document.createElement(type);
   newElement.classList.add(className);
@@ -47,6 +48,14 @@ const addNewItemButton = (container, type) => {
     "button",
     `${type.toLowerCase()}`
   );
+  newContainerButton.addEventListener("click", () => {
+    if (type === "Project") {
+      createNewProject();
+    }
+    if (type === "Task") {
+      createNewTask();
+    }
+  });
   newContainerButton.textContent = `Add New ${type}`;
 };
 
@@ -61,8 +70,19 @@ const displayItem = (container, itemName, type) => {
   }
   const edit = createDomElement(newItem, "button", `edit`);
   edit.textContent = `Edit`;
+  edit.addEventListener("click", () => {
+    console.log("EDIT CLICKKKED");
+  });
   const deleteItem = createDomElement(newItem, "button", `delete`);
   deleteItem.textContent = `Delete`;
+  deleteItem.addEventListener("click", () => {
+    if (type === "project") {
+      ProjectManager.removeProject(itemName);
+    } else if (type === "task") {
+      console.log(`delete the task associated with this project`);
+    }
+    DisplayManager.renderProjects();
+  });
   return newItem;
 };
 
@@ -87,16 +107,90 @@ const createNewProject = () => {
     "save-project"
   );
   saveButton.textContent = "Save";
+  saveButton.addEventListener("click", () => {
+    const input = document.querySelector(".add-project-title").value;
+    console.log("SAVE BUTTON IS FINALLY CLICKED");
+    const newProject = ProjectManager.addProject(input);
+    DisplayManager.renderProjects();
+    DisplayManager.renderTasks(newProject.getTasks());
+    home;
+  });
   const cancelButton = createDomElement(
     newProjectContainer,
     "button",
     "cancel-project"
   );
   cancelButton.textContent = "Cancel";
+  cancelButton.addEventListener("click", () => {
+    DisplayManager.renderProjects();
+  });
+};
+const createNewTask = () => {
+  const addTaskContainer = document.querySelector(".add-task");
+  addTaskContainer.textContent = "";
+  // const taskContainer = document.querySelector(".item-container");
+  const newTaskContainer = createDomElement(
+    addTaskContainer,
+    "div",
+    "new-task-container"
+  );
+  const taskTitle = createInputElement(
+    newTaskContainer,
+    "text",
+    "task-title",
+    "Title"
+  );
+  const taskDescription = createInputElement(
+    newTaskContainer,
+    "text",
+    "task-description",
+    "Description"
+  );
+  // taskDescription.type = "text";
+  const taskDate = createInputElement(
+    newTaskContainer,
+    "date",
+    "task-date",
+    ""
+  );
+  const taskPriority = createDomElement(newTaskContainer, "select", "priority");
+  const priorityHigh = createDomElement(taskPriority, "option", "level");
+  priorityHigh.textContent = "High";
+  priorityHigh.value = "High";
+  const priorityMedium = createDomElement(taskPriority, "option", "level");
+  priorityMedium.textContent = "Medium";
+  priorityMedium.value = "Medium";
+  const priorityLow = createDomElement(taskPriority, "option", "level");
+  priorityLow.textContent = "Low";
+  priorityLow.value = "Low";
+  const newTaskButtonContainer = createDomElement(
+    newTaskContainer,
+    "div",
+    "task-button-container"
+  );
+  const saveTask = createDomElement(
+    newTaskButtonContainer,
+    "button",
+    "save-task"
+  );
+  saveTask.textContent = "Save";
+  const cancelTask = createDomElement(
+    newTaskButtonContainer,
+    "button",
+    "cancel-task"
+  );
+  cancelTask.textContent = "Cancel";
+  cancelTask.addEventListener("click", () => {
+    console.log(
+      `NEED to add an active project flag to display the correct tasks`
+    );
+    DisplayManager.renderTasks();
+  });
 };
 const DisplayManager = (() => {
   const renderProjects = () => {
     const sideContainer = document.querySelector(".side-container");
+    sideContainer.textContent = "";
     ProjectManager.getProjects().forEach((project) => {
       const item = displayItem(sideContainer, project.getName(), "project");
     });
@@ -104,6 +198,7 @@ const DisplayManager = (() => {
   };
   const renderTasks = (tasks) => {
     const taskContainer = document.querySelector(".item-container");
+    taskContainer.textContent = "";
     tasks.forEach((task) => {
       displayItem(taskContainer, task.title, "task");
     });
@@ -118,8 +213,17 @@ const DisplayManager = (() => {
   const renderNewProject = (name) => {
     createNewProject(name);
   };
+  const renderNewTask = () => {
+    createNewTask();
+  };
 
-  return { renderPage, renderProjects, renderTasks, renderNewProject };
+  return {
+    renderPage,
+    renderProjects,
+    renderTasks,
+    renderNewProject,
+    renderNewTask,
+  };
 })();
 
 export { DisplayManager };

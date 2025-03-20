@@ -26,7 +26,7 @@ const ProjectManager = (() => {
     return newProject;
   };
   const removeProject = (name) => {
-    const index = projects.findIndex((project) => projects.getName() === name);
+    const index = projects.findIndex((project) => project.getName() === name);
     if (index != -1) {
       projects.splice(index, 1);
     }

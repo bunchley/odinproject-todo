@@ -110,11 +110,13 @@ img {
 .done,
 .save-project,
 .cancel-project,
-input {
+input,
+select {
   height: 35px;
   background-color: #ffd60a;
-  width: 50px;
-  border-radius: 21%;
+  color: black;
+  /* width: 50px; */
+  /* border-radius: 21%; */
 }
 .edit {
   grid-column-start: 3;
@@ -147,17 +149,61 @@ button.project:hover {
   gap: 10px;
   align-items: center;
   align-content: center;
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 input.add-project-title {
   background-color: #001d3d;
   color: #fefae0;
-  font-size: 32px;
-  border-radius: 5%;
+  font-size: 31px;
+  border-radius: 3%;
   grid-area: input;
   width: auto;
-  margin: 10px;
+  /* margin: 10px; */
+}
+button.cancel-project {
+  font-size: 25px;
 }
 button.save-project {
   grid-area: save;
+  font-size: 25px;
+}
+button:hover {
+  background-color: #003566;
+  color: #fefae0;
+}
+.new-task-container {
+  display: grid;
+  color: black;
+  width: auto;
+  padding: 13px;
+  gap: 9px;
+  /* background-color: #ffc300; */
+  /* font-size: 27px; */
+}
+.new-task-container > input,
+.new-task-container > select {
+  font-size: 25px;
+  border: 2px solid #003566;
+}
+.task-button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+  align-content: center;
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+button.save-task,
+button.cancel-task {
+  background-color: #ffd60a;
+  height: 35px;
+  color: black;
+  font-size: 25px;
 }
