@@ -49,6 +49,8 @@ const addNewItemButton = (container, type) => {
     `${type.toLowerCase()}`
   );
   newContainerButton.addEventListener("click", () => {
+    const taskTitle = document.querySelector(".task-title");
+    const taskDescription = document.querySelector(".task-description");
     if (type === "Project") {
       createNewProject();
     }
@@ -59,9 +61,9 @@ const addNewItemButton = (container, type) => {
   newContainerButton.textContent = `Add New ${type}`;
 };
 
-const displayItem = (container, itemName, type) => {
+const displayItem = (container, itemName, type, count) => {
   let newItem = createDomElement(container, "a", `${type}`);
-  // newItem.classList.add(`${itemName}`);
+  newItem.classList.add(`${count}`);
   const title = createDomElement(
     newItem,
     "div",
@@ -90,6 +92,7 @@ const displayItem = (container, itemName, type) => {
 
 const createNewProject = () => {
   const sideContainer = document.querySelector(".side-container");
+
   const addProjectContainer = document.querySelector(".add-project");
   addProjectContainer.textContent = "";
   const newProjectContainer = createDomElement(
@@ -113,6 +116,8 @@ const createNewProject = () => {
     const input = document.querySelector(".add-project-title").value;
     console.log("SAVE BUTTON IS FINALLY CLICKED");
     const newProject = ProjectManager.addProject(input);
+    // ProjectManager.setActive();
+    ProjectManager.setActive(newProject.getName());
     DisplayManager.renderProjects();
     DisplayManager.renderTasks(newProject.getTasks());
     home;
@@ -126,6 +131,25 @@ const createNewProject = () => {
   cancelButton.addEventListener("click", () => {
     DisplayManager.renderProjects();
   });
+};
+const createTaskPriority = (container) => {
+  const taskPriority = createDomElement(container, "select", "priority");
+  const priorityHigh = createDomElement(
+    taskPriority,
+    "option",
+    "level",
+    "High"
+  );
+  priorityHigh.value = "High";
+  const priorityMedium = createDomElement(
+    taskPriority,
+    "option",
+    "level",
+    "Medium"
+  );
+  priorityMedium.value = "Medium";
+  const priorityLow = createDomElement(taskPriority, "option", "level", "Low");
+  priorityLow.value = "Low";
 };
 const createNewTask = () => {
   const addTaskContainer = document.querySelector(".add-task");
@@ -153,23 +177,7 @@ const createNewTask = () => {
     "task-date",
     ""
   );
-  const taskPriority = createDomElement(newTaskContainer, "select", "priority");
-  const priorityHigh = createDomElement(
-    taskPriority,
-    "option",
-    "level",
-    "High"
-  );
-  priorityHigh.value = "High";
-  const priorityMedium = createDomElement(
-    taskPriority,
-    "option",
-    "level",
-    "Medium"
-  );
-  priorityMedium.value = "Medium";
-  const priorityLow = createDomElement(taskPriority, "option", "level", "Low");
-  priorityLow.value = "Low";
+  createTaskPriority(newTaskContainer);
   const newTaskButtonContainer = createDomElement(
     newTaskContainer,
     "div",
@@ -187,6 +195,15 @@ const createNewTask = () => {
     "cancel-task",
     "Cancel"
   );
+  saveTask.addEventListener("click", () => {
+    let taskTitle = document.querySelector(".task-title");
+    let taskDescription = document.querySelector(".task-description");
+    ProjectManager.getActiveProject().addTask(
+      taskTitle.value,
+      taskDescription.value
+    );
+    DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
+  });
   cancelTask.addEventListener("click", () => {
     console.log(
       `NEED to add an active project flag to display the correct tasks`
@@ -196,19 +213,34 @@ const createNewTask = () => {
 };
 const DisplayManager = (() => {
   const renderProjects = () => {
+    let count = 0;
     const sideContainer = document.querySelector(".side-container");
+    sideContainer.textContent = "";
     createDomElement(sideContainer, "div", "side-title", "Categories");
     ProjectManager.getProjects().forEach((project) => {
-      const item = displayItem(sideContainer, project.getName(), "project");
+      const item = displayItem(
+        sideContainer,
+        project.getName(),
+        "project",
+        count++
+      );
+      if (ProjectManager.getActiveProject() === project) {
+        item.classList.add("active");
+      }
+      item.addEventListener("click", () => {
+        ProjectManager.setActive(project.getName());
+        renderProjects(); // Re-render UI to highlight selection
+      });
     });
     addNewItemButton(sideContainer, "Project");
   };
   const renderTasks = (tasks) => {
+    let count = 0;
     const taskContainer = document.querySelector(".item-container");
     taskContainer.textContent = "";
     createDomElement(taskContainer, "div", "item-title", "Tasks");
     tasks.forEach((task) => {
-      displayItem(taskContainer, task.title, "task");
+      displayItem(taskContainer, task.title, "task", count++);
     });
     addNewItemButton(taskContainer, "Task");
   };

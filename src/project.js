@@ -1,5 +1,6 @@
 const ProjectManager = (() => {
   const projects = [];
+  let activeProject = null;
 
   const createProject = (name) => {
     const tasks = [];
@@ -34,7 +35,20 @@ const ProjectManager = (() => {
 
   const getProjects = () => projects;
 
-  return { addProject, removeProject, getProjects };
+  const setActive = (name) => {
+    activeProject =
+      projects.find((project) => project.getName() === name) || null;
+    console.log("Active project", activeProject);
+  };
+  const getActiveProject = () => activeProject;
+
+  return {
+    addProject,
+    removeProject,
+    getProjects,
+    setActive,
+    getActiveProject,
+  };
 })();
 
 export { ProjectManager };

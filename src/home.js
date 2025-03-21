@@ -11,13 +11,25 @@ const home = (function () {
   DisplayManager.renderTasks(project1.getTasks());
 
   const buttons = document.querySelectorAll("button");
+  const taskTitleInput = document.querySelector(".task-title");
+  const taskDescriptionInput = document.querySelector(".task-description");
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       if (button.classList.contains("project")) {
         DisplayManager.renderNewProject();
       } else if (button.classList.contains("task")) {
-        console.log("ADD NEW TASK");
-        // DisplayManager.renderNewTask();
+        // console.log("ADD NEW TASK");
+        // console.log("SAVE PROJECT BUTTON CLICKEDDD");
+        // const activeProject = ProjectManager.getActiveProject();
+        // if (!activeProject) {
+        //   alert("Please select a project first.");
+        //   return;
+        // }
+        // activeProject.addTask(taskTitleInput.value, taskDescriptionInput.value);
+        // console.log(
+        //   `Task added to ${activeProject.getName()}:`,
+        //   activeProject.getTasks()
+        // );
       } else if (button.classList.contains("done")) {
         console.log("DONE");
       } else if (button.classList.contains("edit")) {
@@ -34,9 +46,20 @@ const home = (function () {
       }
     });
   });
-  // if
-  // document.querySelector(".save-project").addEventListener("click", () => {
-  //   console.log("SAVE PROJECT BUTTON CLICKEDDD");
+  // const defaultProject = document.querySelectorAll(".project");
+  // defaultProject[0].classList.add("active");
+  // const projectContainers = document.querySelectorAll(".project");
+  // projectContainers.forEach((projectElement) => {
+  //   projectElement.addEventListener("click", () => {
+  //     document.querySelector(".active").classList.remove("active");
+  //     projectElement.classList.add("active");
+  //     const projectName =
+  //       projectElement.querySelector(".project-title").textContent;
+  //     console.log("project name after saving", projectName);
+  // ProjectManager.setActive(
+  //   projectElement.querySelector(".project-title").textContent
+  // );
+  // });
   // });
 })();
 

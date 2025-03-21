@@ -25,6 +25,7 @@ body {
 .header {
   grid-area: header;
   display: flex;
+
   flex-direction: column;
   /* border: 5px solid white; */
   padding: 20px;
@@ -206,4 +207,7 @@ button.cancel-task {
   height: 35px;
   color: black;
   font-size: 25px;
+}
+a.project.active {
+  background-color: #fefae0;
 }
