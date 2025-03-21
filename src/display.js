@@ -83,7 +83,9 @@ const displayItem = (container, itemName, type, count) => {
     if (type === "project") {
       ProjectManager.removeProject(itemName);
     } else if (type === "task") {
-      console.log(`delete the task associated with this project`);
+      console.log(`delete selected`);
+      ProjectManager.getActiveProject().removeTask(itemName);
+      DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
     }
     DisplayManager.renderProjects();
   });
