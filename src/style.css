@@ -119,8 +119,8 @@ select {
   /* width: 50px; */
   /* border-radius: 21%; */
 }
-.edit {
-  grid-column-start: 3;
+.delete {
+  grid-column-start: 4;
 }
 .project {
   background-color: #ffd60a;

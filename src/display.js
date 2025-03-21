@@ -73,11 +73,11 @@ const displayItem = (container, itemName, type, count) => {
   // title.textContent = `${itemName}`;
   if (type === "task") {
     const done = createDomElement(newItem, "button", "done", "Done");
+    const edit = createDomElement(newItem, "button", `edit`, "Edit");
+    edit.addEventListener("click", () => {
+      console.log("EDIT CLICKKKED");
+    });
   }
-  const edit = createDomElement(newItem, "button", `edit`, "Edit");
-  edit.addEventListener("click", () => {
-    console.log("EDIT CLICKKKED");
-  });
   const deleteItem = createDomElement(newItem, "button", `delete`, "Delete");
   deleteItem.addEventListener("click", () => {
     if (type === "project") {
@@ -132,6 +132,21 @@ const createNewProject = () => {
     DisplayManager.renderProjects();
   });
 };
+const createTaskInputs = (container) => {
+  const taskTitle = createInputElement(
+    container,
+    "text",
+    "task-title",
+    "Title"
+  );
+  const taskDescription = createInputElement(
+    container,
+    "text",
+    "task-description",
+    "Description"
+  );
+  const taskDate = createInputElement(container, "date", "task-date", "");
+};
 const createTaskPriority = (container) => {
   const taskPriority = createDomElement(container, "select", "priority");
   const priorityHigh = createDomElement(
@@ -159,24 +174,7 @@ const createNewTask = () => {
     "div",
     "new-task-container"
   );
-  const taskTitle = createInputElement(
-    newTaskContainer,
-    "text",
-    "task-title",
-    "Title"
-  );
-  const taskDescription = createInputElement(
-    newTaskContainer,
-    "text",
-    "task-description",
-    "Description"
-  );
-  const taskDate = createInputElement(
-    newTaskContainer,
-    "date",
-    "task-date",
-    ""
-  );
+  createTaskInputs(newTaskContainer);
   createTaskPriority(newTaskContainer);
   const newTaskButtonContainer = createDomElement(
     newTaskContainer,
@@ -230,6 +228,7 @@ const DisplayManager = (() => {
       item.addEventListener("click", () => {
         ProjectManager.setActive(project.getName());
         renderProjects(); // Re-render UI to highlight selection
+        renderTasks(project.getTasks());
       });
     });
     addNewItemButton(sideContainer, "Project");
