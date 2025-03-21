@@ -7,6 +7,7 @@ const home = (function () {
   project1.addTask("Finish Advanced HTML", "complete the project");
   const project2 = ProjectManager.addProject("The Odin Project");
 
+  ProjectManager.setActive(project1.getName());
   DisplayManager.renderPage(project1);
   DisplayManager.renderTasks(project1.getTasks());
 
@@ -18,18 +19,6 @@ const home = (function () {
       if (button.classList.contains("project")) {
         DisplayManager.renderNewProject();
       } else if (button.classList.contains("task")) {
-        // console.log("ADD NEW TASK");
-        // console.log("SAVE PROJECT BUTTON CLICKEDDD");
-        // const activeProject = ProjectManager.getActiveProject();
-        // if (!activeProject) {
-        //   alert("Please select a project first.");
-        //   return;
-        // }
-        // activeProject.addTask(taskTitleInput.value, taskDescriptionInput.value);
-        // console.log(
-        //   `Task added to ${activeProject.getName()}:`,
-        //   activeProject.getTasks()
-        // );
       } else if (button.classList.contains("done")) {
         console.log("DONE");
       } else if (button.classList.contains("edit")) {

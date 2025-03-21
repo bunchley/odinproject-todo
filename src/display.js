@@ -194,19 +194,26 @@ const createNewTask = () => {
     "Cancel"
   );
   saveTask.addEventListener("click", () => {
-    let taskTitle = document.querySelector(".task-title");
-    let taskDescription = document.querySelector(".task-description");
-    ProjectManager.getActiveProject().addTask(
-      taskTitle.value,
-      taskDescription.value
-    );
-    DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
+    let taskTitle = document.querySelector("input.task-title").value;
+    let taskDescription = document.querySelector(
+      "input.task-description"
+    ).value;
+    if (!taskTitle) {
+      alert("Task title cannot be empty.");
+      return;
+    }
+    const activeProject = ProjectManager.getActiveProject();
+    if (!activeProject) {
+      alert("Select a project");
+      return;
+    }
+    activeProject.addTask(taskTitle, taskDescription);
+    DisplayManager.renderTasks(activeProject.getTasks());
+    taskTitle = "";
+    taskDescription = "";
   });
   cancelTask.addEventListener("click", () => {
-    console.log(
-      `NEED to add an active project flag to display the correct tasks`
-    );
-    DisplayManager.renderTasks();
+    DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
   });
 };
 const DisplayManager = (() => {
