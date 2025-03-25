@@ -73,6 +73,11 @@ const displayItem = (container, itemName, type, count) => {
   // title.textContent = `${itemName}`;
   if (type === "task") {
     const done = createDomElement(newItem, "button", "done", "Done");
+    done.addEventListener("click", () => {
+      ProjectManager.getActiveProject().completeTask(itemName);
+      newItem.classList.add("finished");
+      ProjectManager.getActiveProject().getTasks();
+    });
     const edit = createDomElement(newItem, "button", `edit`, "Edit");
     edit.addEventListener("click", () => {
       console.log("EDIT CLICKKKED");
@@ -200,6 +205,8 @@ const createNewTask = () => {
     let taskDescription = document.querySelector(
       "input.task-description"
     ).value;
+    let taskDate = document.querySelector("input.task-date").value;
+    let taskPriority = document.querySelector("select.priority").value;
     if (!taskTitle) {
       alert("Task title cannot be empty.");
       return;
@@ -209,13 +216,25 @@ const createNewTask = () => {
       alert("Select a project");
       return;
     }
-    activeProject.addTask(taskTitle, taskDescription);
+    activeProject.addTask(
+      taskTitle,
+      taskDescription,
+      taskDate,
+      taskPriority,
+      false
+    );
     DisplayManager.renderTasks(activeProject.getTasks());
     taskTitle = "";
     taskDescription = "";
+    taskDate = "";
+    taskPriority = "";
   });
   cancelTask.addEventListener("click", () => {
     DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
+    taskTitle = "";
+    taskDescription = "";
+    taskDate = "";
+    taskPriority = "";
   });
 };
 const DisplayManager = (() => {
@@ -248,7 +267,11 @@ const DisplayManager = (() => {
     taskContainer.textContent = "";
     createDomElement(taskContainer, "div", "item-title", "Tasks");
     tasks.forEach((task) => {
-      displayItem(taskContainer, task.title, "task", count++);
+      const item = displayItem(taskContainer, task.title, "task", count++);
+      console.log("Task:", task, "Complete status", task.complete);
+      if (task.complete == true) {
+        item.classList.add("finished");
+      }
     });
     addNewItemButton(taskContainer, "Task");
   };

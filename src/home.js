@@ -2,54 +2,39 @@ import { DisplayManager } from "./display";
 import { ProjectManager } from "./project";
 
 const home = (function () {
-  const project1 = ProjectManager.addProject("Professional");
-  project1.addTask("Finish Javascript Section", "complete the ToDo project");
-  project1.addTask("Finish Advanced HTML", "complete the project");
-  const project2 = ProjectManager.addProject("The Odin Project");
+  const project1 = ProjectManager.addProject("The Odin Project");
+  project1.addTask(
+    "Finish Organizing Your Javascript Code",
+    "Complete the ToDo project"
+  );
+  project1.addTask(
+    "Finish Javascript in the Real World",
+    "Answer: What is ES6?"
+  );
+  project1.addTask(
+    "Finish Introduction",
+    "Complete Quick Review",
+    "03-10-2025",
+    "mid",
+    true
+  );
+  const project2 = ProjectManager.addProject("Business");
+  project2.addTask("Order Business Cards", "Develop custom design");
+  project2.addTask("Create Prints", "Buy Scanner, order prints");
+
+  const project3 = ProjectManager.addProject("Personal");
+  project3.addTask("Go to Gym", "Leg day", "03-03-2025");
+  project3.addTask(
+    "Call Grandparents",
+    "make plans to hang out",
+    "03-03-2025",
+    "top",
+    true
+  );
 
   ProjectManager.setActive(project1.getName());
   DisplayManager.renderPage(project1);
   DisplayManager.renderTasks(project1.getTasks());
-
-  const buttons = document.querySelectorAll("button");
-  const taskTitleInput = document.querySelector(".task-title");
-  const taskDescriptionInput = document.querySelector(".task-description");
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (button.classList.contains("project")) {
-        DisplayManager.renderNewProject();
-      } else if (button.classList.contains("task")) {
-      } else if (button.classList.contains("done")) {
-        console.log("DONE");
-      } else if (button.classList.contains("edit")) {
-        console.log("EDIT");
-      } else if (button.classList.contains("delete")) {
-      } else if (button.classList.contains("save-project")) {
-        console.log("SAVE PROJECT");
-        // const newProjectName =
-        //   document.querySelector(".add-project-title").textContent;
-        // console.log(newProjectName);
-        // ProjectManager.addProject(newProjectName);
-      } else if (button.classList.contains("cancel-project")) {
-        console.log("CANCEL SAVE");
-      }
-    });
-  });
-  // const defaultProject = document.querySelectorAll(".project");
-  // defaultProject[0].classList.add("active");
-  // const projectContainers = document.querySelectorAll(".project");
-  // projectContainers.forEach((projectElement) => {
-  //   projectElement.addEventListener("click", () => {
-  //     document.querySelector(".active").classList.remove("active");
-  //     projectElement.classList.add("active");
-  //     const projectName =
-  //       projectElement.querySelector(".project-title").textContent;
-  //     console.log("project name after saving", projectName);
-  // ProjectManager.setActive(
-  //   projectElement.querySelector(".project-title").textContent
-  // );
-  // });
-  // });
 })();
 
 export { home };

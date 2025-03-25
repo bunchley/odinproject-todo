@@ -8,8 +8,8 @@ const ProjectManager = (() => {
     const getTasks = () => {
       return tasks;
     };
-    const addTask = (title, description) => {
-      tasks.push({ title, description });
+    const addTask = (title, description, date, priority, complete) => {
+      tasks.push({ title, description, date, priority, complete });
     };
     const removeTask = (title) => {
       const index = tasks.findIndex((task) => task.title === title);
@@ -17,8 +17,14 @@ const ProjectManager = (() => {
         tasks.splice(index, 1);
       }
     };
+    const completeTask = (title) => {
+      const index = tasks.findIndex((task) => task.title === title);
+      if (index != -1) {
+        tasks[index].complete = true;
+      }
+    };
 
-    return { getName, addTask, removeTask, getTasks };
+    return { getName, addTask, removeTask, getTasks, completeTask };
   };
 
   const addProject = (name) => {

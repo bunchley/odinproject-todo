@@ -211,3 +211,11 @@ button.cancel-task {
 a.project.active {
   background-color: #fefae0;
 }
+a.task.finished {
+  opacity: 100%;
+  /* text-decoration: line-through; */
+  background-color: #8d99ae;
+}
+a.task.finished > .task-title {
+  text-decoration: line-through;
+}
