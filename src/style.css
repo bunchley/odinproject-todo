@@ -106,7 +106,7 @@ img {
   align-items: center;
   align-content: center;
 }
-.edit,
+.edit-button,
 .delete,
 .done,
 .save-project,
@@ -219,3 +219,35 @@ a.task.finished {
 a.task.finished > .task-title {
   text-decoration: line-through;
 }
+a.edit-container {
+  display: grid;
+  height: auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "title title"
+    "desc desc"
+    "date priority"
+    "button button";
+}
+a.edit-container > .task-title {
+  grid-area: title;
+}
+a.edit-container > .task-description {
+  grid-area: desc;
+}
+a.edit-container > .task-date {
+  grid-area: date;
+}
+a.edit-container > .priority {
+  grid-area: priority;
+}
+a.edit-container > .task-title {
+  grid-area: title;
+}
+a.edit-container > .task-button-container {
+  grid-area: button;
+}
+/* .task-button-container > .canceltask {
+  grid-area: cancelEdit;
+} */

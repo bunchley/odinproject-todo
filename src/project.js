@@ -23,8 +23,25 @@ const ProjectManager = (() => {
         tasks[index].complete = true;
       }
     };
+    const updateTask = (
+      oldTitle,
+      newTitle,
+      newDescription,
+      newDate,
+      newPriority
+    ) => {
+      const index = tasks.findIndex((task) => task.title === oldTitle);
+      if (index != -1) {
+        tasks[index].title = newTitle;
+        tasks[index].description = newDescription;
+        tasks[index].date = newDate;
+        tasks[index].priority = newPriority;
+        tasks[index].complete = false;
+      }
+      console.log("task new title", tasks[index].title);
+    };
 
-    return { getName, addTask, removeTask, getTasks, completeTask };
+    return { getName, addTask, removeTask, getTasks, completeTask, updateTask };
   };
 
   const addProject = (name) => {
