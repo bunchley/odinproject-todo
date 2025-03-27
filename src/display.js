@@ -62,7 +62,6 @@ const addNewItemButton = (container, type) => {
   newContainerButton.textContent = `Add New ${type}`;
 };
 const displayEditTask = (newItem, task) => {
-  console.log("Display Edit Task", newItem);
   newItem.textContent = "";
   newItem.classList.add("edit-container");
   createTaskInputs(newItem, true);
@@ -70,7 +69,6 @@ const displayEditTask = (newItem, task) => {
   createTaskButtons(newItem, true, task);
   const editFields = document.querySelectorAll(".edit");
   editFields.forEach((field) => {
-    console.log("edit field:", field);
     if (field.classList.contains("task-title")) {
       field.value = task.title;
     }
@@ -102,12 +100,10 @@ const displayTask = (container, task, count) => {
   });
   const edit = createDomElement(newItem, "button", `edit-button`, "Edit");
   edit.addEventListener("click", () => {
-    console.log("EDIT CLICKKKED");
     displayEditTask(newItem, task);
   });
   const deleteItem = createDomElement(newItem, "button", `delete`, "Delete");
   deleteItem.addEventListener("click", () => {
-    console.log(`delete selected`);
     ProjectManager.getActiveProject().removeTask(task.title);
     DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
     DisplayManager.renderProjects();
@@ -155,9 +151,7 @@ const createNewProject = () => {
   saveButton.textContent = "Save";
   saveButton.addEventListener("click", () => {
     const input = document.querySelector(".add-project-title").value;
-    console.log("SAVE BUTTON IS FINALLY CLICKED");
     const newProject = ProjectManager.addProject(input);
-    // ProjectManager.setActive();
     ProjectManager.setActive(newProject.getName());
     DisplayManager.renderProjects();
     DisplayManager.renderTasks(newProject.getTasks());
@@ -260,9 +254,6 @@ const createTaskButtons = (container, editing = false, task = null) => {
       );
     }
     if (editing === true) {
-      console.log("save clicked for editing");
-      console.log("old task title:", task.title);
-      console.log("new task title:", taskTitle);
       activeProject.updateTask(
         task.title,
         taskTitle,
@@ -280,10 +271,6 @@ const createTaskButtons = (container, editing = false, task = null) => {
 
   cancelTask.addEventListener("click", () => {
     DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
-    taskTitle = "";
-    taskDescription = "";
-    taskDate = "";
-    taskPriority = "";
   });
 };
 const createNewTask = () => {
@@ -299,8 +286,6 @@ const createNewTask = () => {
   createTaskButtons(newTaskContainer);
 };
 const viewTaskDetails = (itemContainer, task) => {
-  console.log("view this task", task);
-  console.log("here is the new item:", itemContainer);
   itemContainer.classList.add("view-task");
   itemContainer.textContent = "";
   const title = createDomElement(
@@ -380,7 +365,6 @@ const DisplayManager = (() => {
     createDomElement(taskContainer, "div", "item-title", "Tasks");
     tasks.forEach((task) => {
       const item = displayTask(taskContainer, task, count++);
-      console.log("Task:", task, "Complete status", task.complete);
       if (task.complete == true) {
         item.classList.add("finished");
       }
@@ -388,7 +372,7 @@ const DisplayManager = (() => {
     });
     addNewItemButton(taskContainer, "Task");
   };
-  const renderPage = (tasks) => {
+  const renderPage = () => {
     createHeader();
     createMainContainer();
     createSideBar();

@@ -38,7 +38,6 @@ const ProjectManager = (() => {
         tasks[index].priority = newPriority;
         tasks[index].complete = false;
       }
-      console.log("task new title", tasks[index].title);
     };
 
     return { getName, addTask, removeTask, getTasks, completeTask, updateTask };
@@ -61,7 +60,6 @@ const ProjectManager = (() => {
   const setActive = (name) => {
     activeProject =
       projects.find((project) => project.getName() === name) || null;
-    console.log("Active project", activeProject);
   };
   const getActiveProject = () => activeProject;
 

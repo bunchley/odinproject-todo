@@ -97,7 +97,7 @@ img {
   background-color: #001d3d;
   margin: 10px;
   border-radius: 9%;
-  height: 50px;
+  height: auto;
   padding: 10px;
   display: grid;
   grid-template-rows: 1fr;
