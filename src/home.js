@@ -5,21 +5,30 @@ const home = (function () {
   const project1 = ProjectManager.addProject("The Odin Project");
   project1.addTask(
     "Finish Organizing Your Javascript Code",
-    "Complete the ToDo project"
+    "Complete the ToDo project",
+    "2025-03-27",
+    "High"
   );
   project1.addTask(
     "Finish Javascript in the Real World",
-    "Answer: What is ES6?"
+    "Answer: What is ES6?",
+    "2025-03-28",
+    "Medium"
   );
   project1.addTask(
     "Finish Introduction",
     "Complete Quick Review",
     "03-10-2025",
-    "mid",
+    "Medium",
     true
   );
   const project2 = ProjectManager.addProject("Business");
-  project2.addTask("Order Business Cards", "Develop custom design");
+  project2.addTask(
+    "Order Business Cards",
+    "Develop custom design",
+    "2025-03-31",
+    "High"
+  );
   project2.addTask("Create Prints", "Buy Scanner, order prints");
 
   const project3 = ProjectManager.addProject("Personal");

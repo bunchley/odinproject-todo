@@ -107,6 +107,7 @@ img {
   align-content: center;
 }
 .edit-button,
+.close,
 .delete,
 .done,
 .save-project,
@@ -251,3 +252,25 @@ a.edit-container > .task-button-container {
 /* .task-button-container > .canceltask {
   grid-area: cancelEdit;
 } */
+a.view-task {
+  /* background-color: #fefae0;
+  color: #003566; */
+  display: grid;
+  grid-template-rows: 1fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr;
+  height: auto;
+  font-size: 17px;
+}
+a.view-task > .task-title {
+  font-weight: bold;
+  font-size: 25px;
+}
+.high {
+  background-color: #d00000;
+}
+.medium {
+  background-color: #e85d04;
+}
+.low {
+  background-color: #faa307;
+}

@@ -90,6 +90,10 @@ const displayTask = (container, task, count) => {
   let newItem = createDomElement(container, "a", `task`);
   newItem.classList.add(`${count}`);
   const title = createDomElement(newItem, "div", `task-title`, `${task.title}`);
+
+  title.addEventListener("click", () => {
+    viewTaskDetails(newItem, task);
+  });
   const done = createDomElement(newItem, "button", "done", "Done");
   done.addEventListener("click", () => {
     ProjectManager.getActiveProject().completeTask(task.title);
@@ -294,6 +298,57 @@ const createNewTask = () => {
   createTaskPriority(newTaskContainer);
   createTaskButtons(newTaskContainer);
 };
+const viewTaskDetails = (itemContainer, task) => {
+  console.log("view this task", task);
+  console.log("here is the new item:", itemContainer);
+  itemContainer.classList.add("view-task");
+  itemContainer.textContent = "";
+  const title = createDomElement(
+    itemContainer,
+    "div",
+    "task-title",
+    task.title
+  );
+  const description = createDomElement(
+    itemContainer,
+    "div",
+    "task-description",
+    `Description: ${task.description}`
+  );
+  let dateDisplay = "";
+  if (task.date === undefined) {
+    dateDisplay = "No due date";
+  } else {
+    dateDisplay = `Due: ${task.date}`;
+  }
+  const date = createDomElement(itemContainer, "div", "task-date", dateDisplay);
+  if (task.priority === undefined) {
+    task.priority = "Low";
+  }
+  const priority = createDomElement(
+    itemContainer,
+    "div",
+    "priority",
+    `Priority: ${task.priority}`
+  );
+  title.classList.add("view");
+  description.classList.add("view");
+  date.classList.add("view");
+  priority.classList.add("view");
+  const close = createDomElement(itemContainer, "button", "close", "Close");
+  close.addEventListener("click", () => {
+    DisplayManager.renderTasks(ProjectManager.getActiveProject().getTasks());
+  });
+};
+const displayPriorityColor = (container, task) => {
+  if (task.priority === "High") {
+    container.classList.add("high");
+  } else if (task.priority === "Medium") {
+    container.classList.add("medium");
+  } else {
+    container.classList.add("low");
+  }
+};
 const DisplayManager = (() => {
   const renderProjects = () => {
     let count = 0;
@@ -329,6 +384,7 @@ const DisplayManager = (() => {
       if (task.complete == true) {
         item.classList.add("finished");
       }
+      displayPriorityColor(item, task);
     });
     addNewItemButton(taskContainer, "Task");
   };
